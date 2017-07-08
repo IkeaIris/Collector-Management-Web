@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.cauc.devManage.userManage.dao.UserManageMapper">
+	<select id="getUserList" resultType="com.cauc.devManage.userManage.entity.User" parameterType="com.cauc.devManage.userManage.entity.User">
+		select * from User_Account where IS_DEL = '0'
+		<if test="User_ID!=null and User_ID!=''">
+			and User_ID=#{User_ID} 
+		</if>
+		<if test="HashedPwd!=null and HashedPwd!=''">
+			and HashedPwd=#{HashedPwd} 
+		</if>
+		 order by User_No;
+	</select>
+
+	<insert id="insertUser" parameterType="com.cauc.devManage.userManage.entity.User">
+		insert into User_Account
+			(User_ID, User_Role, HashedPwd) 
+		values
+			(#{User_ID},#{User_Role}, #{HashedPwd});
+	</insert>
+	
+	<update id="updateUser" parameterType="com.cauc.devManage.userManage.entity.User">
+		update User_Account set 
+		<if test="User_Role!=null and User_Role!=''">
+				User_Role=#{User_Role}
+		</if>
+		<if test="HashedPwd!=null and HashedPwd!=''">
+				HashedPwd=#{HashedPwd} 
+		</if>	
+		where 
+			User_ID=#{User_ID};
+	</update>
+	
+	<update id="deleteUser" parameterType="com.cauc.devManage.userManage.entity.User">
+		update User_Account set IS_DEL='1' where User_ID=#{User_ID};
+	</update>
+	
+</mapper>

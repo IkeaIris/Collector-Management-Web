@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>大型设备管理（开发版）-中国民航大学</title>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="./css/AdminLTE.min.css">
+		<link rel="stylesheet" href="./css/_all-skins.min.css">
+		<script src="./angularjs/angular.min.js"></script>
+		<script src="./JavaScript/layout.js"></script>
+		<script src="./JavaScript/jquery-2.2.3.min.js"></script>
+		<script src="./JavaScript/jquery.slimscroll.min.js"></script>
+		<script src="./bootstrap/js/bootstrap.min.js"></script>
+		<script src="./JavaScript/app.min.js"></script>
+		<script src="./JavaScript/logManage.js"></script>
+		<script src="./plugins/My97DatePicker/WdatePicker.js"></script>
+</head>
+
+
+<body class="hold-transition skin-blue fixed sidebar-mini" ng-app="logApp" ng-controller="userOperationLog" class="container">
+
+
+<header class="main-header">
+		<a class="logo">
+			<span class="logo-lg">
+				<b>大型设备管理系统</b>
+			</span>
+		</a>
+		<nav class="navbar navbar-static-top">
+			<button class="btn btn-danger" style="float:right" ng-click="exit()"> 退出</button>
+		</nav>
+	</header>
+	<div id="sidebar" class="wrapper"></div>	
+	
+
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h4><span class="glyphicon glyphicon-home"></span><a href="index.html" style="width:60px" >首页</a><span class="glyphicon glyphicon-chevron-right"></span></span><a href="student.html">学生信息列表</a><span class="glyphicon glyphicon-chevron-right"></span>日志查看</h4>
+    </section>
+
+
+    <section class="content">
+      <div class="box">
+            <div class="box-header ">
+            </div>
+            <div class="box-body">
+      <div> 
+
+	
+	<div style="float:right">
+		<button class="btn btn-primary" ng-click="search()">
+			<span class="fa-plus">搜索</span>
+		</button>
+    </div>
+   
+	<table width="90%" border="0" cellpadding="0" cellspacing="0">
+			
+			<td class="text-center">
+				<label for="meeting">用户账户：</label>
+  				<input name='User_ID'
+				   ng-model="User_ID"
+				 />
+  			</td>
+				
+			<td class="text-center">
+				<label for="meeting">起始时间：</label>
+				<input name='Time_Start' 
+				   ng-model="Time_Start"
+				   id="Time_Start"  
+				   onfocus="WdatePicker({startDate:'%y-%M-%d 00:00:00',skin:'twoer',dateFmt:'yyyy-MM-dd HH:mm:ss'})" 
+				 />
+			</td>
+			
+			<td class="text-center">
+				<label for="meeting">结束时间：</label>
+				<input name='Time_End' 
+				   ng-model="Time_End"  
+				    id="Time_End"  
+				   onfocus="WdatePicker({startDate:'%y-%M-%d 00:00:00',skin:'twoer',dateFmt:'yyyy-MM-dd HH:mm:ss'})" 
+				 />
+			</td>
+
+			<td class="text-center">
+				<label for="meeting">操作表名：</label>
+				<input name="Table_Name" 
+				  ng-model="Table_Name"
+				  />
+  			</td>
+
+			<td class="text-center">
+				<label for="meeting">操作名：</label>
+				<select name="Operation_Type" ng-model="Operation_Type">
+					<option value ="">--请选择--</option>
+					<option value ="1" class="text-center">新增</option>
+					<option value ="2" class="text-center">删除</option>
+					<option value ="3" class="text-center">修改</option>
+					<option value ="4" class="text-center">登陆</option>
+					<option value ="5" class="text-center">注销</option>
+  				</select>
+  			</td>
+    
+	<table  class="table table-border table-bordered table-bg table-sort" >
+		<thead>
+				<th class="text-center">序号</th>
+				<th class="text-center">操作时间</th>
+				<th class="text-center">用户账号</th>
+				<th class="text-center">用户IP地址</th>
+				<th class="text-center">操作表名</th>
+				<th class="text-center">操作</th>
+				<th class="text-center">操作列名</th>
+				<th class="text-center">旧值</th>
+				<th class="text-center">新值</th>
+				<th class="text-center">选择</th>
+		</thead>
+		<tbody>
+			<tr ng-repeat="userlog in UserLogList" class="text-center" ng-model="userlogmodel">
+				<td>{{userlog.log_No}}</td>
+				<td>{{userlog.operation_Timestamp|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+				<td>{{userlog.user_ID}}</td>
+				<td>{{stringip(userlog.ip)}}</td>
+				<td ng-click="setTable_NameSearch(userlog.table_Name)">{{userlog.table_Name}}</td>
+				<td>{{stringoperation(userlog.operation_Type)}}</td>
+				<td>{{userlog.column_Name}}</td>
+				<td>{{userlog.old_Value}}</td>
+				<td>{{userlog.new_Value}}</td>
+				<td><input type="checkbox"></td>
+			</tr>
+		</tbody>
+	</table>		
+	
+	<div class="box text-center">
+	<ul class="pagination" style="margin:0 auto;">
+		<li ng-class="{true:'disabled'}[p_current==1]"><a href="javascript:void(0);" ng-click="p_index()">首页</a></li>
+		<li ng-repeat="page in pages" ng-class="{true:'active'}[p_current==page]"><a href="javascript:void(0);" ng-click="load_page(page)">{{page}}</a></li>
+		<li ng-class="{true:'disabled'}[p_current==p_all_page]"><a href="javascript:void(0);" ng-click="p_last()">尾页</a></li>
+	</ul>
+	    <div style="float:right">
+		<button class="btn btn-success" ng-click="refresh()">
+			<span class="fa-plus">刷新</span>
+		</button>
+    </div>
+	<span style="vertical-align:12px;">共：{{count}}条</span>
+	</table>
+	
+	</div>
+
+	</div>
+			</div>
+				</div>
+			</section>
+		<div class="control-sidebar-bg"></div>
+	</div>	
+	
+</body>
+</html>

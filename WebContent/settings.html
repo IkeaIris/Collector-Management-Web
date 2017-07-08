@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>大型设备管理（开发版）-中国民航大学</title>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/AdminLTE.min.css">
+  <link rel="stylesheet" href="./css/_all-skins.min.css">
+  <script src="./angularjs/angular.min.js"></script>
+  <script src="./JavaScript/layout.js"></script>
+  <script src="./JavaScript/jquery-2.2.3.min.js"></script>
+  <script src="./JavaScript/jquery.slimscroll.min.js"></script>
+  <script src="./bootstrap/js/bootstrap.min.js"></script>
+  <script src="./JavaScript/app.min.js"></script>
+  <script src="./JavaScript/settings.js"></script>
+</head>
+<body class="hold-transition skin-blue fixed sidebar-mini" ng-app="settingApp" ng-controller="settingController" class="container">
+	<div id="sidebar" class="wrapper"></div>	
+	
+<header class="main-header">
+  <a class="logo">
+    <span class="logo-lg">
+      <b>大型设备管理系统</b>
+    </span>
+  </a>
+  <nav class="navbar navbar-static-top">
+    <button class="btn btn-danger" style="float:right" ng-click="exit()"> 退出</button>
+  </nav>
+</header>
+
+	  <div class="content-wrapper">
+    <section class="content-header">
+      <h4><span class="glyphicon glyphicon-home"></span><a href="index.html" style="width:60px" >首页</a><span class="glyphicon glyphicon-chevron-right"></span>用户管理</h4>
+    </section>
+    
+    <section class="content">
+      <div class="box">
+            <div class="box-header ">
+            </div>
+            <div class="box-body">
+      <div> 
+	<form>
+  <div class="form-group">
+    <label >姓名：</label>
+    <input type="text" class="form-control" ng-model="name" placeholder="姓名">
+  </div>
+  <div class="form-group">
+    <label>修改密码：</label>
+    <input type="password" class="form-control" ng-model="pwd1" placeholder="Password">
+  </div>
+  <div class="form-group">
+    <label>确认密码：</label>
+    <input type="password" class="form-control" ng-model="pwd2" placeholder="Confirm Password">
+  </div>
+    <div class="form-group">
+    <label >所属学院：</label>
+    <input type="text" class="form-control" ng-model="dept" placeholder="所属学院">
+  </div>
+  </form>	
+  </div>
+  <button  class="btn btn-primary" ng-click="submit()">提交</button>
+
+</div>
+</div>
+</div>
+</section>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>大型设备管理（开发版）-中国民航大学</title>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/AdminLTE.min.css">
+	<link rel="stylesheet" href="./css/_all-skins.min.css">
+	<script src="./angularjs/angular.min.js"></script>
+	<script src="./JavaScript/layout.js"></script>
+	<script src="./JavaScript/jquery-2.2.3.min.js"></script>
+	<script src="./JavaScript/jquery.slimscroll.min.js"></script>
+	<script src="./bootstrap/js/bootstrap.min.js"></script>
+	<script src="./JavaScript/app.min.js"></script>
+</head>
+<body class="hold-transition skin-blue fixed sidebar-mini" ng-app="clctApp" ng-controller="index" class="container">
+<script charset="utf-8">
+	$(document).ready(function() {
+		$("#sidebar").load("sidebar.html", function() {});
+	});
+</script>
+
+<header class="main-header">
+	<a class="logo">
+		<span class="logo-lg">
+			<b>大型设备管理系统</b>
+		</span>
+	</a>
+	<nav class="navbar navbar-static-top">
+		<button class="btn btn-danger" style="float:right" ng-click="exit()"> 退出</button>
+	</nav>
+	</header>
+
+
+<div id="sidebar" class="wrapper"></div>
+	<div class="content-wrapper">
+		<section class="content-header">
+			<h4>
+				<span class="glyphicon glyphicon-home"></span>
+				<a href="index.html" style="width:60px" >首页</a>
+			</h4>
+		</section>
+
+		<section class="content">
+			<div class="box">
+				<div class="box-header ">
+					<h3>
+						<span class="fa fa-home"></span>
+						<span class="fa fa-chevron-right"></span>
+						仪表盘
+					</h3>
+				</div>
+				<div class="box-body">
+					<h4>欢迎使用大型设备管理系统</h4>
+				</div> 
+			</div>
+		</section>
+	</div>
+</body>
+</html>

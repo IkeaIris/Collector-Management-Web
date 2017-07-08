@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ <mapper namespace="com.cauc.devManage.userOperationLog.dao.UserLogMapper">
+	
+	<select id="getUserLogList" parameterType="com.cauc.devManage.userOperationLog.entity.UserLogInformation"
+		resultType="com.cauc.devManage.userOperationLog.entity.UserLogInformation">
+		select * from UserOperationLog
+		where 1=1
+		<if test="User_ID!=null and User_ID!=''">
+			and User_ID=#{User_ID}
+		</if>
+		<if test="Table_Name!=null and Table_Name!=''">
+			and Table_Name=#{Table_Name}
+		</if>
+		<if test="Operation_Type!=null and Operation_Type!=''">
+			and Operation_Type=#{Operation_Type}
+		</if>
+		<if test="Time_Start!=null and Time_Start!='' and Time_End!=null and Time_End!=''">
+			and #{Time_Start} &lt;= Operation_Timestamp and Operation_Timestamp &lt;= #{Time_End}
+		</if>
+		order by Log_No
+	</select>
+		
+	<select id="getUserLogListTotal" resultType="int" parameterType="com.cauc.devManage.userOperationLog.entity.UserLogInformation">
+	    select count(*)
+	    from UserOperationLog
+	</select>
+		
+	<insert id="insertUserLog" parameterType="com.cauc.devManage.userOperationLog.entity.UserLogInformation">
+	    insert into UserOperationLog
+	    (Operation_Timestamp,User_ID,IP,Operation_Type
+	    	<if test="Table_Name!=null and Table_Name!=''">
+				,Table_Name
+			</if>
+			<if test="Column_Name!=null and Column_Name!=''">
+				,Column_Name
+			</if>
+			<if test="Old_Value!=null and Old_Value!=''">
+				,Old_Value
+			</if>
+			<if test="New_Value!=null and New_Value!=''">
+				,New_Value
+			</if>
+	    )
+	    values
+	    (#{Operation_Timestamp},#{User_ID},#{IP},#{Operation_Type}
+	    	<if test="Table_Name!=null and Table_Name!=''">
+				,#{Table_Name}
+			</if>
+			<if test="Column_Name!=null and Column_Name!=''">
+				,#{Column_Name}
+			</if>
+			<if test="Old_Value!=null and Old_Value!=''">
+				,#{Old_Value}
+			</if>
+			<if test="New_Value!=null and New_Value!=''">
+				,#{New_Value}
+			</if>
+	    )
+	</insert>
+
+ </mapper>

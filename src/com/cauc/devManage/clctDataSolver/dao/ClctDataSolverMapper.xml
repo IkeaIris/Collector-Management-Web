@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ <mapper namespace="com.cauc.devManage.clctDataSolver.dao.ClctDataSolverMapper">
+ 	<update id="createDataTableByClctId"
+ 	parameterType="com.cauc.devManage.clctDataSolver.entity.CollectorSimple">
+		call Create_Clct_Data_Table(#{Clct_ID});
+	</update>
+	
+	<delete id="dropDataTableByClctNo"
+	parameterType="com.cauc.devManage.clctDataSolver.entity.CollectorSimple">
+		call Drop_Clct_Data_Table(#{Clct_NO});
+	</delete>
+ </mapper>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ <mapper namespace="com.cauc.devManage.userInfoManage.dao.UserInfoManageMapper">
+	
+	<select id="getUserInfoList" parameterType="com.cauc.devManage.userInfoManage.entity.UserInfo"
+		resultType="com.cauc.devManage.userInfoManage.entity.UserInfo">
+		select * from User_Info_View
+		where 1=1
+		<if test="User_ID!=null and User_ID!='' ">
+			and User_ID = #{User_ID}
+		</if>
+		<if test="User_Name!=null and User_Name!='' ">
+			and User_Name = #{User_Name}
+		</if>
+		<if test=" User_Dept!=null and User_Dept!='' ">
+			and User_Dept = #{User_Dept}
+		</if>
+		<if test="Role_Name!=null and Role_Name!='' ">
+			and Role_Name = #{Role_Name}
+		</if>
+	</select>
+		
+	<select id="getUserInfoListTotal" resultType="int" parameterType="com.cauc.devManage.userInfoManage.entity.UserInfo">
+	    select count(*) from User_Info_View;
+	    
+	</select>
+		
+	<insert id="insertUserInfo" parameterType="com.cauc.devManage.userInfoManage.entity.UserInfo">
+		insert into User_Info (User_ID, User_Name, User_Dept, User_Role)
+		values
+		(#{User_ID}, #{User_Name}, #{User_Dept}, #{User_Role});
+	</insert>
+	
+	<update id="updateUserInfo" parameterType="com.cauc.devManage.userInfoManage.entity.UserInfo">
+		update UserInfo set 
+		(User_Name, User_Dept, User_Role)
+		 = (#{User_Name}, #{User_Dept}, #{User_Role})
+		where User_ID=#{User_ID}
+	</update>
+	
+	<update id="deleteUserInfo" parameterType="com.cauc.devManage.userInfoManage.entity.UserInfo">
+		update User_Info set IS_DEL='1' where User_ID=#{User_ID}
+	</update>
+ </mapper>

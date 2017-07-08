@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>大型设备管理（开发版）-中国民航大学</title>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/AdminLTE.min.css">
+	<link rel="stylesheet" href="./css/_all-skins.min.css">
+	<script src="./angularjs/angular.min.js"></script>
+	<script src="./JavaScript/layout.js"></script>
+	<script src="./JavaScript/jquery-2.2.3.min.js"></script>
+	<script src="./JavaScript/jquery.slimscroll.min.js"></script>
+	<script src="./bootstrap/js/bootstrap.min.js"></script>
+	<script src="./JavaScript/app.min.js"></script>
+	<script src="./JavaScript/userManage.js"></script>
+
+</head>
+	
+<body class="hold-transition skin-blue fixed sidebar-mini" ng-app="userApp" ng-controller="userController" class="container">
+		
+	<div id="sidebar" class="wrapper"></div>	
+	
+	
+	<header class="main-header">
+		<a class="logo">
+			<span class="logo-lg">
+				<b>大型设备管理系统</b>
+			</span>
+		</a>
+		<nav class="navbar navbar-static-top">
+			<button class="btn btn-danger" style="float:right" ng-click="exit()"> 退出</button>
+		</nav>
+	</header>
+	  <div class="content-wrapper">
+    <section class="content-header">
+      <h4><span class="glyphicon glyphicon-home"></span><a href="index.html" style="width:60px" >首页</a><span class="glyphicon glyphicon-chevron-right"></span></span>用户管理</h4>
+    </section>
+
+    <section class="content">
+      <div class="box">
+            <div class="box-header ">
+            </div>
+            <div class="box-body">
+      <div> 
+<!-- 	<div style="float:left"> -->
+<!-- 		<button class="btn btn-success" ng-click="add()"> -->
+<!-- 			<span class="fa-plus">添加</span> -->
+<!-- 		</button> -->
+<!--     </div> -->
+    
+	<div style="float:right">
+		<button class="btn btn-primary" ng-click="search()">
+			<span class="fa-plus">搜索</span>
+		</button>
+    </div>
+   
+   	  
+	<table width="90%" border="0" cellpadding="0" cellspacing="0">
+			
+			<td class="text-center">
+				<label for="meeting">管理员账户：</label>
+				<input name="User_ID" 
+				  ng-model="User_ID"
+				  />
+  			</td>
+			
+			<td class="text-center">
+				<label for="meeting">管理员姓名：</label>
+				<input name="User_Name" 
+				  ng-model="User_Name"
+				  />
+  			</td>
+			
+			<td class="text-center">
+				<label for="meeting">所在学院：</label>
+				<input name="User_Dept" 
+				  ng-model="User_Dept"
+				  />
+  			</td>
+				
+			<td class="text-center">
+				<label for="meeting">所属角色：</label>
+				<select name="Role_Name" ng-model="Role_Name">
+					<option value= ""class="text-center">--请选择--</option>
+					<option value="设备管理员" class="text-center">设备管理员</option>
+					<option value="用户管理员" class="text-center">用户管理员</option>
+					<option value="超级管理员" class="text-center">超级管理员</option>
+  				</select>
+  			</td>
+    
+	<table  class="table table-border table-bordered table-bg table-sort" >
+		<thead>
+				<th class="text-center">序号</th>
+				<th class="text-center">管理员账号</th>
+				<th class="text-center">管理员姓名</th>
+				<th class="text-center">所在学院</th>
+				<th class="text-center">所属角色</th>
+				<th class="text-center">操作</th>
+		</thead>
+		<tbody>
+			<tr ng-repeat="user in userInfoList" class="text-center" ng-model="UserListModel">
+				<td>{{user.no}}</td>
+				<td>{{user.user_ID}}</td>
+				<td>{{user.user_Name}}</td>
+				<td>{{user.user_Dept}}</td>
+				<td>{{user.role_Name}}</td>
+				<td>
+					<button class="btn btn-primary" data-toggle="modal" data-target="#editModal" 
+						ng-click="preedit(user.user_ID, user.user_Name, user.user_Dept, user.role_Name)">
+						<span class="fa fa-edit">编辑</span>
+					</button>
+					<button class="btn btn-danger" ng-click="Delete(user.user_ID)">
+						<span class="fa-plus">删除</span>
+					</button>	    
+			    </td>
+			</tr>
+		</tbody>
+	</table>		
+
+	<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">编辑采集器信息</h4>
+				</div>
+				<div class="modal-body">
+					<p>用户账号：{{id}}</p>
+					<p>用户姓名：{{name}}</p>
+					<p>用户学院：{{dept}}</p>
+					<p>用户原有权限：{{role}}</p>
+					<p>更新用户权限：</p>
+					<select name="Role_Name" ng-model="newRole">
+							<option value= ""class="text-center">--请选择--</option>
+							<option value="1" class="text-center">设备管理员</option>
+							<option value="2" class="text-center">用户管理员</option>
+							<option value="3" class="text-center">超级管理员</option>
+  					</select>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">放弃</button>
+					<button type="button" ng-click="edit()" class="btn btn-primary" data-dismiss="modal">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="box text-center">
+	<ul class="pagination" style="margin:0 auto;">
+		<li ng-class="{true:'disabled'}[p_current==1]"><a href="javascript:void(0);" ng-click="p_index()">首页</a></li>
+		<li ng-repeat="page in pages" ng-class="{true:'active'}[p_current==page]"><a href="javascript:void(0);" ng-click="load_page(page)">{{page}}</a></li>
+		<li ng-class="{true:'disabled'}[p_current==p_all_page]"><a href="javascript:void(0);" ng-click="p_last()">尾页</a></li>
+	</ul>
+	    <div style="float:right">
+		<button class="btn btn-success" ng-click="refresh()">
+			<span class="fa-plus">刷新</span>
+		</button>
+    </div>
+	<span style="vertical-align:12px;">共：{{count}}条</span>
+	</table>
+	
+	</div>
+
+	</div>
+			</div>
+				</div>
+			</section>
+	</div>	
+
+</body>
+</html>

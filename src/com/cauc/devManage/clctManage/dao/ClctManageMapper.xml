@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.cauc.devManage.clctManage.dao.ClctManageMapper">
+	<select id="getCollectorList" 
+	resultType="com.cauc.devManage.clctManage.entity.Collector" 
+	parameterType="com.cauc.devManage.clctManage.entity.Collector">
+		select * from CollectorInfoView;
+	</select>
+	
+	<select id="searchCollectorList"
+	resultType="com.cauc.devManage.clctManage.entity.Collector" 
+	parameterType="com.cauc.devManage.clctManage.entity.Collector">
+		select * from CollectorInfoView where Clct_ID like #{Clct_ID};
+	</select>
+	
+	<select id="getCollectorTrashList" 
+	resultType="com.cauc.devManage.clctManage.entity.Collector" 
+	parameterType="com.cauc.devManage.clctManage.entity.Collector">
+		select * from DropedCollectorInfoView;
+	</select>
+	
+	<insert id="insertCollector" 
+	parameterType="com.cauc.devManage.clctManage.entity.Collector">
+		insert into CollectorInfo(Clct_ID,Clct_State,Dept_ID,Clct_Mark,Is_Del) values 
+		(#{Clct_ID},
+		(select Clct_State from CollectorState where State_Detail=#{State_Detail}),
+		(select Dept_ID from DepartmentInfo where Dept_Name=#{Dept_Name}),
+		#{Clct_Mark},
+		0);
+	</insert>
+	
+	<update id="updateCollector" 
+	parameterType="com.cauc.devManage.clctManage.entity.Collector">
+		update CollectorInfo 
+		set Clct_ID=#{Clct_ID},
+		Clct_State=(select Clct_State from CollectorState where State_Detail=#{State_Detail}),
+		Dept_ID=(select Dept_ID from DepartmentInfo where Dept_Name=#{Dept_Name}),
+		Clct_Mark=#{Clct_Mark} 
+		where Clct_NO=#{Clct_NO};
+	</update>
+	
+	<update id="deleteCollector" 
+	parameterType="com.cauc.devManage.clctManage.entity.Collector">
+		update CollectorInfo set Is_Del='1' where Clct_NO=#{Clct_NO};
+	</update>
+	
+	<update id="reuseCollector" 
+	parameterType="com.cauc.devManage.clctManage.entity.Collector">
+		update CollectorInfo set Is_Del='0' where Clct_NO=#{Clct_NO};
+	</update>
+	
+	<delete id="deleteCollectorUndone" 
+	parameterType="com.cauc.devManage.clctManage.entity.Collector">
+		delete from CollectorInfo where Clct_NO=#{Clct_NO};
+	</delete>
+</mapper>

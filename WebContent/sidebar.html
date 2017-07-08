@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>大型设备管理（开发版）-中国民航大学</title>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+</head>
+<script type="text/javascript">
+		var role=document.cookie.split(";")[1].split("=")[1];  
+		if(role == "3"){
+			document.getElementById('roleAdmin').style.display = "";
+			document.getElementById('logView').style.display = "";
+		}
+		else{
+		if(role == "1"){
+			document.getElementById('roleAdmin').style.display = "none";
+			document.getElementById('logView').style.display = "none";
+		}
+		 else{
+		 	document.getElementById('logView').style.display = "none";
+		 	document.getElementById('roleAdmin').style.display = "";
+		 }
+		}  
+	</script>
+
+<body>
+	<aside class="main-sidebar">
+		<section class="sidebar"  style="margin-top:40px">
+			<ul class="sidebar-menu"   style="margin:20px">
+				<li class="treeview">
+					<a href="#">
+						<i class="fa fa-university"></i>
+						<span>采集器管理</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li class="active">
+							<a href="clctManage.html">
+								<i class="fa fa-commenting"></i>
+								采集器列表
+							</a>
+						</li>
+					</ul>
+				</li>
+				
+				 
+				<li class="treeview"   id="roleAdmin">
+						<a href="#">
+							<i class="fa  fa-search"></i>
+								<span>角色管理（管理员）</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+						</a>
+						<ul class="treeview-menu">
+							<li class="active">
+								<a href="userManage.html">
+									<i class="fa fa-commenting"></i>
+									角色管理
+								</a>
+							</li>
+						</ul>
+					</li>
+				
+
+				<li class="treeview" id="logView">
+					<a href="#">
+						<i class="fa fa-user"></i>
+							<span>日志管理</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li class="active">
+							<a href="logView.html">
+								<i class="fa fa-commenting"></i>
+								日志查看
+							</a>
+						</li>
+					</ul>
+				</li>
+				
+				
+				<li class="treeview">
+					<a href="#">
+						<i class="fa fa-file-image-o"></i>
+						<span>用户</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li class="active">
+							<a href="settings.html">
+								<i class="fa fa-commenting"></i>
+								用户信息管理
+							</a>
+						</li>
+					</ul>
+				</li>
+ 
+				
+				
+				
+				<li class="treeview">
+					<a href="#">
+						<i class="fa fa-file-image-o"></i>
+						<span>回收站</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li class="active">
+							<a href="clctTrash.html">
+								<i class="fa fa-commenting"></i>
+								采集器回收站
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</section>
+	</aside>		
+</body>
+</html>

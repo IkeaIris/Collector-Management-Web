@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>大型设备管理（开发版）-中国民航大学</title>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/AdminLTE.min.css">
+	<link rel="stylesheet" href="./css/_all-skins.min.css">
+	<script src="./angularjs/angular.min.js"></script>
+	<script src="./JavaScript/layout.js"></script>
+	<script src="./JavaScript/jquery-2.2.3.min.js"></script>
+	<script src="./JavaScript/jquery.slimscroll.min.js"></script>
+	<script src="./bootstrap/js/bootstrap.min.js"></script>
+	<script src="./JavaScript/app.min.js"></script>
+	<script src="./JavaScript/clctData.js"></script>
+</head>
+
+
+
+<body class="hold-transition skin-blue fixed sidebar-mini" ng-app="clctDataApp" ng-controller="clctData" class="container">
+	<header class="main-header">
+	<a class="logo">
+		<span class="logo-lg">
+			<b>大型设备管理系统</b>
+		</span>
+	</a>
+	<nav class="navbar navbar-static-top">
+		<button class="btn btn-danger" style="float:right" ng-click="exit()"> 退出</button>
+	</nav>
+	</header>
+	
+	
+	<div id="sidebar" class="wrapper"></div>		
+	<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<section class="content-header">
+				<h4>
+				<span class="glyphicon glyphicon-home"></span>
+					<a href="index.html" style="width:60px" >首页</a>
+					<span class="glyphicon glyphicon-chevron-right"></span>
+					<a href="clctManage.html">采集器管理</a>
+					<span class="glyphicon glyphicon-chevron-right"></span>
+						采集器数据查看
+				</h4>
+			</section>
+
+			<section class="content">
+				<div class="box">
+							<div class="box-header ">
+							</div>
+							<div class="box-body">
+								<div> 
+	<!-- <div class="container"> -->
+	<div style="float:right">
+		<button class="btn btn-success" ng-click="refresh()">
+		<span class="fa fa-refresh">刷新</span></button>
+	</div>
+	<table  class="table table-border table-bordered table-bg table-sort" >
+		<thead>
+				<th class="text-center">生成时间</th>
+				<th class="text-center">环境温度</th>
+				<th class="text-center">环境湿度</th>
+				<th class="text-center">设备温度</th>
+				<th class="text-center">电压</th>
+				<th class="text-center">电流</th>
+				<th class="text-center">状态</th>
+		</thead>
+		<tbody>
+			<tr ng-repeat="clctdata in clctDataList" class="text-center">
+				<td>{{clctdata.gen_TIMESTAMP}}</td>
+				<td>{{clctdata.env_TEMP}}</td>
+				<td>{{clctdata.env_HUMI}}</td>
+				<td>{{clctdata.dev_TEMP}}</td>
+				<td>{{clctdata.voltage}}</td>
+				<td>{{clctdata.current}}</td>
+				<td>{{clctdata.state}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="box text-center">
+	<ul class="pagination" style="margin:0 auto;">
+		<li ng-class="{true:'disabled'}[p_current==1]"><a href="javascript:void(0);" ng-click="p_index()">首页</a></li>
+		<li ng-repeat="page in pages" ng-class="{true:'active'}[p_current==page]"><a href="javascript:void(0);" ng-click="load_page(page)">{{page}}</a></li>
+		<li ng-class="{true:'disabled'}[p_current==p_all_page]"><a href="javascript:void(0);" ng-click="p_last()">尾页</a></li>
+	</ul>
+	<span style="vertical-align:12px;">共：{{count}}条</span>
+	</div>
+	</div>
+			</div>
+				</div>
+			</section>
+		<div class="control-sidebar-bg"></div>
+	</div>	
+</body>
+</html>

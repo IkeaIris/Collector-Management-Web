@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>
+		大型设备管理（开发版）-中国民航大学
+	</title>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/AdminLTE.min.css">
+	<link rel="stylesheet" href="./css/_all-skins.min.css">
+	<script src="./angularjs/angular.min.js"></script>
+	<script src="./JavaScript/layout.js"></script>
+	<script src="./JavaScript/jquery-2.2.3.min.js"></script>
+	<script src="./JavaScript/jquery.slimscroll.min.js"></script>
+	<script src="./bootstrap/js/bootstrap.min.js"></script>
+	<script src="./JavaScript/app.min.js"></script>
+	<script src="./JavaScript/clctManage.js"></script>
+</head>
+
+<body class="hold-transition skin-blue fixed sidebar-mini" ng-app="clctApp" ng-controller="clctManage" class="container">
+	<header class="main-header">
+	<a class="logo">
+		<span class="logo-lg">
+			<b>大型设备管理系统</b>
+		</span>
+	</a>
+	<nav class="navbar navbar-static-top">
+		<button class="btn btn-danger" style="float:right" ng-click="exit()"> 退出</button>
+	</nav>
+	</header>
+	
+	<div id="sidebar" class="wrapper"></div>	
+	
+	<div class="content-wrapper">
+		<section class="content-header">
+			<h4>
+				<span class="glyphicon glyphicon-home"></span>
+				<a href="index.html" style="width:60px">首页</a>
+				<span class="glyphicon glyphicon-chevron-right"></span>
+				采集器管理
+			</h4>
+		</section>
+		
+		<section class="content">
+			<div class="box">
+				<div class="box-header "></div>
+				<div class="box-body"><div>
+<!-- <div class="text-center">
+	<input id="searchpara" type="text"placeholder="采集器ID">
+	<span>
+		<button class="btn btn-primary" ng-click="search()">搜索</button>
+	</span>
+</div> -->
+
+<div style="float:left">
+<!-- 增加按钮 -->
+	<button id="add" class="btn btn-success" data-toggle="modal" data-target="#addModal">
+				<span class="fa fa-plus">添加</span>
+	</button>
+</div>
+<div style="float:right">
+	<button class="btn btn-success" ng-click="refresh()">
+	<span class="fa fa-refresh">刷新</span>
+	</button>
+</div>
+<table  class="table table-border table-bordered table-bg table-sort" >
+	<thead>
+<!-- 	表格的表头 -->
+			<th class="text-center">采集器ID</th>
+			<th class="text-center">采集器状态</th>
+			<th class="text-center">采集器所属学院</th>
+			<th class="text-center">采集器说明</th>
+			<th class="text-center">操作</th>
+	</thead>
+<!-- 	通过AngularJS的ng-repeat绑定，循环显示采集器信息 -->
+	<tbody>
+		<tr ng-repeat="Collector in collectorList" class="text-center">
+			<td>{{Collector.clct_ID}}</td>
+			<td>{{Collector.state_Detail}}</td>
+			<td>{{Collector.dept_Name}}</td>
+			<td>{{Collector.clct_Mark}}</td>
+			<td>
+				<button class="btn btn-success" ng-click="showData(Collector.clct_NO)">
+					<span class="fa fa-edit">查看数据</span>
+				</button>
+				<button class="btn btn-primary" data-toggle="modal" data-target="#editModal" 
+				ng-click="preedit(Collector.clct_NO,Collector.clct_ID,Collector.state_Detail,Collector.dept_Name,Collector.clct_Mark)">
+					<span class="fa fa-edit">编辑</span>
+				</button>
+				<button class="btn btn-danger" ng-click="deleteClct(Collector.clct_NO)">
+					<span class="fa fa-edit">删除</span>
+				</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<!-- 添加采集器的窗口 -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">添加采集器</h4>
+			</div>
+			<div class="modal-body">
+				<p>采集器ID</p>
+				<input type="text" id="add_clct_ID" placeholder="COLXXX">
+				<p>采集器状态</p>
+				<input type="text" id="add_state_Detail" placeholder="待命">
+				<p>采集器所属学院</p>
+				<input type="text" id="add_dept_Name" placeholder="计算机科学与技术学院">
+				<p>采集器说明</p>
+				<input type="text" id="add_clct_Mark" placeholder="选填">
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">放弃</button>
+				<button type="button" ng-click="add()" class="btn btn-primary" data-dismiss="modal">提交</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">编辑采集器信息</h4>
+			</div>
+			<div class="modal-body">
+				<p>编辑采集器ID</p>
+				<input type="text" id="edit_clct_ID" placeholder="采集器ID">
+				<p>编辑采集器状态</p>
+				<input type="text" id="edit_state_detail" placeholder="采集器状态">
+				<p>编辑采集器所属学院</p>
+				<input type="text" id="edit_dept_name" placeholder="采集器所属学院">
+				<p>编辑采集器说明</p>
+				<input type="text" id="edit_clct_Mark" placeholder="选填">
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">放弃</button>
+				<button type="button" ng-click="edit()" class="btn btn-primary" data-dismiss="modal">提交</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="box text-center">
+<ul class="pagination" style="margin:0 auto;">
+	<li ng-class="{true:'disabled'}[p_current==1]"><a href="javascript:void(0);" ng-click="p_index()">首页</a></li>
+	<li ng-repeat="page in pages" ng-class="{true:'active'}[p_current==page]"><a href="javascript:void(0);" ng-click="load_page(page)">{{page}}</a></li>
+	<li ng-class="{true:'disabled'}[p_current==p_all_page]"><a href="javascript:void(0);" ng-click="p_last()">尾页</a></li>
+</ul>
+<span style="vertical-align:12px;">共：{{count}}条</span>
+</div>
+</div>
+						</div>
+			</div>
+		</section>
+	<div class="control-sidebar-bg"></div>
+</div>
+
+</body>
+</html>
